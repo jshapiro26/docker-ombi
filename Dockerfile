@@ -18,13 +18,10 @@ RUN apt-get update &&\
     zlib1g\
     locales &&\
     apt-get clean &&\
-    wget https://ci.appveyor.com/api/buildjobs/lr8437akhr3tf9f2/artifacts/linux.tar.gz &&\
-    tar xzf linux.tar.gz &&\
-    chmod +x Ombi &&\
-    locale-gen ${LANG} &&\
-    mkdir -p /config
+    locale-gen ${LANG}
 
-CMD ["./Ombi", "--storage", "/config"]
+COPY entry.sh /root/entry.sh
 VOLUME ["/config"]
+ENTRYPOINT ["/root/entry.sh"]
 EXPOSE 5000
 
